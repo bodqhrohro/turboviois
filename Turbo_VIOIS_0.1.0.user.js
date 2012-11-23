@@ -2,35 +2,10 @@
 // @name           Turbo VIOIS
 // @author          bodqhrohro
 // @description  Мелкие улучшения в пользовательском интерфейсе сайта viois.ru
-// @version        0.1.1 alpha
+// @version        0.1.0 alpha
 // @include        http://viois.ru/*
 // ==/UserScript==
 
-(function(){
-var unsafeWindow= this.unsafeWindow;
-(function(){
- var test_scr= document.createElement("script");
- var tid= ("t" + Math.random() + +(new Date())).replace(/\./g, "");
- test_scr.text= "window."+tid+"=true";
- document.querySelector("body").appendChild(test_scr);
- if (typeof(unsafeWindow) == "undefined" || !unsafeWindow[tid]) {
-  if (window[tid]) {
-   unsafeWindow= window;
-  } else {
-   var scr= document.createElement("script");
-   scr.text= "(" +
-    (function() {
-     var el= document.createElement('unsafeWindow');
-     el.style.display= 'none';
-     el.onclick=function(){return window};
-     document.body.appendChild(el);
-    }).toString() + ")()";
-   document.querySelector("body").appendChild(scr);
-   this.unsafeWindow= document.querySelector("unsafeWindow").onclick();
-   unsafeWindow= window.unsafeWindow;
-  };
- }
-})();
 function show_settings(){
 var nmp2=unsafeWindow.document.createElement('div');
 nmp2.style.display='block';
@@ -160,6 +135,7 @@ function processPage(){
     processBlogPage();
   }
 }
+(function(){
 var vfh=document.getElementById('vfh');
 vfh=vfh.getElementsByTagName('*')[0];
 vfh=vfh.getElementsByTagName('*')[0];
