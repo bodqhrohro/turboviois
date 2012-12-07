@@ -2,7 +2,7 @@
 // @name           Turbo VIOIS
 // @author          bodqhrohro
 // @description  Мелкие улучшения в пользовательском интерфейсе сайта viois.ru
-// @version        0.2.1 alpha
+// @version        0.2.0 alpha
 // @include        http://viois.ru/*
 // ==/UserScript==
 
@@ -158,7 +158,6 @@ function cleanupHideCookies(){
  createCookie('hide_rating_2','',-100500);
  createCookie('hide_rating_3','',-100500);
  createCookie('hide_last_blogs','',-100500);
- createCookie('hide_last_topics','',-100500);
  createCookie('hide_activity_wall','',-100500);
  createCookie('hide_popular_groups','',-100500);
  createCookie('hide_popular_topics','',-100500);
