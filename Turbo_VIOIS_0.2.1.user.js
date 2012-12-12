@@ -2,7 +2,7 @@
 // @name           Turbo VIOIS
 // @author          bodqhrohro
 // @description  Мелкие улучшения в пользовательском интерфейсе сайта viois.ru
-// @version        0.3.0 alpha
+// @version        0.2.1 alpha
 // @include        http://viois.ru/*
 // ==/UserScript==
 
@@ -70,9 +70,6 @@ displaySetting(labelFieldReplace, 'tv_thread_avatar', false);
 var labelFieldReplace = addCheckbox(settingsBody, 'Не загружать миничат');
 labelFieldReplace.addEventListener('click', function () { toggleSetting('tv_disable_chat'); }, true);
 displaySetting(labelFieldReplace, 'tv_disable_chat', false);
-var labelFieldReplace = addCheckbox(settingsBody, 'Редактор BB-кодов');
-labelFieldReplace.addEventListener('click', function () { toggleSetting('tv_bb_editor'); }, true);
-displaySetting(labelFieldReplace, 'tv_bb_editor', false);
 //var labelFieldReplace = addCheckbox(settingsBody, 'Открывать миничат в новом окне');
 //labelFieldReplace.addEventListener('click', function () { toggleSetting('tv_chat_newwindow'); }, true);
 //displaySetting(labelFieldReplace, 'tv_chat_newwindow', false);
@@ -156,18 +153,6 @@ function addStyle(s) {
   style.appendChild(stylecontent);
   head.appendChild(style);
 }
-function insertAtCursor(field, str, shift) {
-  if (!field || !str) return;
-  var startPos = 0;
-  if (field.selectionStart || field.selectionStart == '0') {
-    startPos = field.selectionStart;
-    var endPos = field.selectionEnd;
-    field.value = field.value.substring(0, startPos) + str + field.value.substring(endPos, field.value.length);
-  } else field.value += str;
-  var newPos = startPos + str.length + shift;
-  field.setSelectionRange(newPos, newPos);
-  field.focus();
-}
 function cleanupHideCookies(){
  createCookie('hide_rating_1','',-100500);
  createCookie('hide_rating_2','',-100500);
@@ -178,59 +163,11 @@ function cleanupHideCookies(){
  createCookie('hide_popular_groups','',-100500);
  createCookie('hide_popular_topics','',-100500);
 }
-function drawBBeditor(){
- addStyle('a:hover .bbtn { background-color:#ebeff9; }');
- var bbpanel=document.getElementById('error_wpiprdi');
- bbpanel=bbpanel.getElementsByTagName('*')[0];
- bbpanel=bbpanel.getElementsByTagName('*')[0];
- bbpanel=bbpanel.getElementsByTagName('*')[0];
- bbpanel=bbpanel.getElementsByTagName('div')[0];
- bbpanel.onmousedown='';
- bbpanel.innerHTML='';
- var bbtn=document.createElement('a');
- bbtn.innerHTML='<img id=\'bbtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAX0lEQVQ4y2P8//8/AzUBEwOVwaiBg9BAhv///2PFDAwMZxgYGP7jwGcYGBjSsOknxsByNDe4IBmshK6PEi/fY2BgeE8tL8NdTg0vCyLJdVDDy++xepVWXmYcLW1GgIEAm1vA6E+CY9UAAAAASUVORK5CYII=\' title=\'Жирный\' class=\'bbtn\'>';
- var ibtn=document.createElement('a');
- ibtn.innerHTML='<img id=\'ibtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQ4y+3UsQkCYQzF8d8nVm4g6AIu4CQOYO8SbuAo198CgpWVCwiWFoKVGJvPTswVVwjeg3Qv/+QRSIkIfWqkZw3AHwSOu5hKKec6fIIn7hEx+2iOiLTq4A0C2299GeitOY64YtEHcF2j7rJkXYBT7HHBMgN2ufKqghqcUneyYYsbHjigzQ5Yhm/zB8AXmE7ocsOKwO0AAAAASUVORK5CYII=\' title=\'Курсив\' class=\'bbtn\'>';
- var ubtn=document.createElement('a');
- ubtn.innerHTML='<img id=\'ubtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAdklEQVQ4y2P8//8/AzUBEwOVwaiBVAD////HwAwMDMYMDAz/odgYTUsokpwgut6hG4bvB8LA91jV4YgUBgYGhjPQgN+NpmUVVPwMNv34DBRkYGDoQIpRGH4HFRfEZiDjoC8cWHBJMDIy/iciUzDS3IWMI6+ABQDdNHFjxNx/6wAAAABJRU5ErkJggg==\' title=\'Подчёркивание\' class=\'bbtn\'>';
- var lbtn=document.createElement('a');
- lbtn.innerHTML='<img id=\'lbtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgUlEQVQ4y+2U2wmAMAxFT8RF3KBuoBu4WVdyAx3BDTpC/KkQgviAfPZCaSiXQ5ILFVUlUh3BasAAmZQzoO4UYDH2pb55X/bAO5iFXioPvgwgqoqIXG2OwF7r6WW4td4J2GotHih2Gy/AO+/QO1MyHc4fY0imPsJ3GJ6ytM+hAf/rBAhGVoaeusxUAAAAAElFTkSuQmCC\' title=\'Вставить ссылку...\' class=\'bbtn\'>';
- var qbtn=document.createElement('a');
- qbtn.innerHTML='<img id=\'qbtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAdUlEQVQ4y+2U0QmAMAxE37lBV3AFXcERXMEVOouzuIIr6AqOEH+KlFoKQn+EHhyBg3sQApGZUVMdldWAfwJKWiVZ8CIpzfw/V8bMsg4aAAPmqPJk2V4B2AM7cEQwB2whc7leaWUPnMCYZBcwhfk+ZnsODfhdN0SuWLeWjG7PAAAAAElFTkSuQmCC\' title=\'Цитата\' class=\'bbtn\'>';
- var imgbtn=document.createElement('a');
- imgbtn.innerHTML='<img id=\'imgbtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAo0lEQVQ4y+2UsQ2DMBRE7xDTsAAzIFZKmT1AYgZkKUyQBbxDpjgaI5nIlm3iIgXXfLn4707/26Yk1FSDyvp/YOsfSD4AdIUMK+kZS5iCWQCTq8GetjDNW9JGMmpeCuwdrM+aYYa61FhSWzY1r80saQlAzSWgpJerPtRETJIznL/gC8mPb+KWM+QkXI/GUGLfBMCak3AkOdZ6y/YC49TD+z/8WTtJU0JMFaR51AAAAABJRU5ErkJggg==\' title=\'Вставить изображение...\' class=\'bbtn\'>';
- var ytbtn=document.createElement('a');
- ytbtn.innerHTML='<img id=\'ytbtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAEPklEQVQ4y6WU3WsUVxjGnzNnPjaT3ZlszGbJWq2EdtMkbl0qloWCe5PYxkDAO0FKoJRKbmrvQq/qH1By68e19ANEMBKiMR/qijBlURBaU2uRxLhNStidr3VmZ+bM6UW6JbW5EPrAe3He9+XHgfM8B5xztOvBgwdfVqvVLzjnuHfv3terq6sTu+dvUv86zMzMzA8MDPB6vf6Vqqr80aNHn/0vIOe879SpU7xUKvGzZ8/+HIbh+OnTp59OTU09DYJg6NKlS9/duXNn5vLly7dv3rz5zV5Aev78eeyS6zjO0IULF4avXr367cWLF89sbm7mt7a20s1ms2gYRgFA1/z8/HHOuV0ul3/AaxJebxQKheVsNotDhw4tP3v2TJucnPzx5MmTsxsbG3379+93MpnM2oEDB/5Ip9MN7KH/AFutFuWcA4DjOI7y/Pnzd2q12tuU0sjzPGaaZrZWq3VFUYQ3Avb29v6ez+frnPNfp6enp69du/bhkydP3j137tznAwMDlYWFhffDMHQLhcJPewHJ37eBaZqf2radC8Ow37btD1RVrSYSCadarZ5RVdXL5/NX6vV62TTNvmw2u62q6m+yLP/S1dW1oWna97uB0sOHDxdnZ2ePt5uiKEJRFHDO0dnZCc/z4LouNE2DLMuI4xhxHCMMQwDA6Ojo7WKxOAaAia7rfry0tHR8ZGQEyWQSAEAp5Xfv3iWEEERRhFwuh/7+fjx+/BhBEECWZXDOoSgKbNtGpVIZHRwcLCuKsixYlvUeYwwdHR28WCyiWCwiiiLYto0wDNFoNNDT04NSqQTXdWGaJgghcBwHlmWBUgrOOSzLGgQAMQiCbkopbty4QTKZDKIowvXr18mJEydQq9UwPDyMMAzhui4mJiawvr4OwzBQLpeRy+Vw//59rK2twff9DAAIQRDocRxDlmWIogjOOfr6+nDs2DH09vaiVCpBkiR4nodUKoWjR4/i8OHDGBoaQhzHGBsbQxRF8H0/BQACY0zlnIMQsvNKhCCOY1iWhVarBdM0IUkSms0mKpUKGo0GstksgiCA7/vYt28fZFlGGIYUAARK6as27HUxxtC2FaUUHR0dAADf95FOp+H7Pm7dugVCCCRJYgAgyLJsEUJ2gk0pBEGAIOz4XZIkJBIJxHEMURRBCAGlFOl0Gi9fvoRhGDh48CAopRBF0QUAIZFI1CmliOO4PYDjONB1HaVSCYIgoNVqIZVKoVwuQ1EUGIYBTdMwNTUFTdPgeR5UVf0TAERd11cppaCUYnFxEZxziKKIubk5CILwj33m5uag6zosy8L29jYWFhaQyWRgGAaSySS6u7tX20mRq9Xq8srKykfNZhOEECSTSTiOg93J2f0ZaJoG13XRdsf4+PjikSNHPgHAdmd50rbttxhjKmNMYYx1MsYk3l7YcQChlLYopa9EUWwJgtDUdf2FrutX2jt/AS41dUaC5TOOAAAAAElFTkSuQmCC\' title=\'Вставить видео с YouTube...\' class=\'bbtn\'>';
- bbpanel.appendChild(bbtn);
- bbpanel.appendChild(ibtn);
- bbpanel.appendChild(ubtn);
- bbpanel.appendChild(lbtn);
- bbpanel.appendChild(qbtn);
- bbpanel.appendChild(imgbtn);
- bbpanel.appendChild(ytbtn);
- bbtn=unsafeWindow.document.getElementById('bbtn');
- bbtn.onclick=function() {insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[b][/b]',-4);};
- ibtn=unsafeWindow.document.getElementById('ibtn');
- ibtn.onclick=function() {insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[i][/i]',-4);};
- ubtn=unsafeWindow.document.getElementById('ubtn');
- ubtn.onclick=function() {insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[u][/u]',-4);};
- lbtn=unsafeWindow.document.getElementById('lbtn');
- lbtn.onclick=function() {lurl=prompt("Введите URL:",""); if (!/:\/\//.test(lurl)) {lurl='http://'+lurl;}; insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[url='+lurl+'][/url]',-6);};
- qbtn=unsafeWindow.document.getElementById('qbtn');
- qbtn.onclick=function() {insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[quote][/quote]',-8);};
- imgbtn=unsafeWindow.document.getElementById('imgbtn');
- imgbtn.onclick=function() {iurl=prompt("Вставьте URL изображения:","");insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[img]'+iurl+'[/img]',0);};
- ytbtn=unsafeWindow.document.getElementById('ytbtn');
- ytbtn.onclick=function() {yturl=prompt("Вставьте URL видео:","");insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[youtube]'+yturl+'[/youtube]',0);};
-}
 function processAskPage(){
 }
 function processThreadPage(){
  if (readSetting('tv_thread_avatar')){
   addStyle('a:hover .wciuasCSS { width:auto; height:auto; position:absolute; z-index:150; }');
- }
- if (readSetting('tv_bb_editor')){
-  drawBBeditor();
  }
 }
 function processBlogPage(){
