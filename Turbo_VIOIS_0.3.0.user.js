@@ -2,7 +2,7 @@
 // @name           Turbo VIOIS
 // @author          bodqhrohro
 // @description  Мелкие улучшения в пользовательском интерфейсе сайта viois.ru
-// @version        0.3.1 alpha
+// @version        0.3.0 alpha
 // @include        http://viois.ru/*
 // ==/UserScript==
 
@@ -31,7 +31,6 @@ var unsafeWindow= this.unsafeWindow;
   };
  }
 })();
-var fld1;
 function show_settings(){
 var nmp2=unsafeWindow.document.createElement('div');
 nmp2.style.display='block';
@@ -115,7 +114,7 @@ function addButton(settingsBody, text) {
 function toggleSetting(name) {
   var result = readSetting(name);
   result = !result;
-  createCookie(name, result ? 'true' : 'false', 365);
+  createCookie(name, result ? 'true' : 'false');
   return result;
 }
 function createCookie(name, value, days) {
@@ -157,7 +156,7 @@ function addStyle(s) {
   style.appendChild(stylecontent);
   head.appendChild(style);
 }
-function insertAtCursor(field, str) {
+function insertAtCursor(field, str, shift) {
   if (!field || !str) return;
   var startPos = 0;
   if (field.selectionStart || field.selectionStart == '0') {
@@ -165,18 +164,8 @@ function insertAtCursor(field, str) {
     var endPos = field.selectionEnd;
     field.value = field.value.substring(0, startPos) + str + field.value.substring(endPos, field.value.length);
   } else field.value += str;
-  var newPos = startPos + str.length;
-  field.setSelectionRange(newPos, endPos);
-  field.focus();
-}
-function insertAtCursor2(field, str1, str2) {
-  if (!field || !str1 || !str2) return;
-  var startPos = 0;
-  if (field.selectionStart || field.selectionStart == '0') {
-    startPos = field.selectionStart;
-    var endPos = field.selectionEnd;
-    field.value = field.value.substring(0, startPos) + str1 + field.value.substring(startPos, endPos) + str2 + field.value.substring(endPos, field.value.length);
-  } else field.value += str1+str2;
+  var newPos = startPos + str.length + shift;
+  field.setSelectionRange(newPos, newPos);
   field.focus();
 }
 function cleanupHideCookies(){
@@ -189,17 +178,12 @@ function cleanupHideCookies(){
  createCookie('hide_popular_groups','',-100500);
  createCookie('hide_popular_topics','',-100500);
 }
-function drawBBeditor(pnl,m1){
+function drawBBeditor(){
  addStyle('a:hover .bbtn { background-color:#ebeff9; }');
- var bbpanel=pnl;
- if (m1) {
-  bbpanel=bbpanel.getElementsByTagName('*')[0];
-  bbpanel=bbpanel.getElementsByTagName('*')[0];
-  bbpanel=bbpanel.getElementsByTagName('*')[0];
- } else {
-  bbpanel=bbpanel.parentNode;
- }
- fld1=bbpanel.getElementsByTagName('textarea')[0];
+ var bbpanel=document.getElementById('error_wpiprdi');
+ bbpanel=bbpanel.getElementsByTagName('*')[0];
+ bbpanel=bbpanel.getElementsByTagName('*')[0];
+ bbpanel=bbpanel.getElementsByTagName('*')[0];
  bbpanel=bbpanel.getElementsByTagName('div')[0];
  bbpanel.onmousedown='';
  bbpanel.innerHTML='';
@@ -225,19 +209,19 @@ function drawBBeditor(pnl,m1){
  bbpanel.appendChild(imgbtn);
  bbpanel.appendChild(ytbtn);
  bbtn=unsafeWindow.document.getElementById('bbtn');
- bbtn.onclick=function() {insertAtCursor2(fld1,'[b]','[/b]');};
+ bbtn.onclick=function() {insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[b][/b]',-4);};
  ibtn=unsafeWindow.document.getElementById('ibtn');
- ibtn.onclick=function() {insertAtCursor2(fld1,'[i]','[/i]');};
+ ibtn.onclick=function() {insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[i][/i]',-4);};
  ubtn=unsafeWindow.document.getElementById('ubtn');
- ubtn.onclick=function() {insertAtCursor2(fld1,'[u]','[/u]');};
+ ubtn.onclick=function() {insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[u][/u]',-4);};
  lbtn=unsafeWindow.document.getElementById('lbtn');
- lbtn.onclick=function() {if (lurl=prompt("Введите URL:","")) {if (!/:\/\//.test(lurl)) {lurl='http://'+lurl;}; insertAtCursor2(fld1,'[url='+lurl+']','[/url]');}};
+ lbtn.onclick=function() {lurl=prompt("Введите URL:",""); if (!/:\/\//.test(lurl)) {lurl='http://'+lurl;}; insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[url='+lurl+'][/url]',-6);};
  qbtn=unsafeWindow.document.getElementById('qbtn');
- qbtn.onclick=function() {insertAtCursor2(fld1,'[quote]','[/quote]');};
+ qbtn.onclick=function() {insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[quote][/quote]',-8);};
  imgbtn=unsafeWindow.document.getElementById('imgbtn');
- imgbtn.onclick=function() {if (iurl=prompt("Вставьте URL изображения:","")) {insertAtCursor(fld1,'[img]'+iurl+'[/img]');}};
+ imgbtn.onclick=function() {iurl=prompt("Вставьте URL изображения:","");insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[img]'+iurl+'[/img]',0);};
  ytbtn=unsafeWindow.document.getElementById('ytbtn');
- ytbtn.onclick=function() {if (yturl=prompt("Вставьте URL видео:","")) {insertAtCursor(fld1,'[youtube]'+yturl+'[/youtube]');}};
+ ytbtn.onclick=function() {yturl=prompt("Вставьте URL видео:","");insertAtCursor(unsafeWindow.document.getElementsByName('content')[0],'[youtube]'+yturl+'[/youtube]',0);};
 }
 function processAskPage(){
 }
@@ -246,19 +230,12 @@ function processThreadPage(){
   addStyle('a:hover .wciuasCSS { width:auto; height:auto; position:absolute; z-index:150; }');
  }
  if (readSetting('tv_bb_editor')){
-  unsafeWindow.document.getElementById('wpcprie').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),true);}
+  drawBBeditor();
  }
 }
 function processBlogPage(){
  if (readSetting('tv_thread_avatar')){
   addStyle('a:hover .wciuasCSS { width:auto; height:auto; position:absolute; z-index:150; }');
- }
- if (readSetting('tv_bb_editor')){
-  unsafeWindow.document.getElementById('wpcprie_a').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),true);}
-  var cmnts=document.getElementsByName('pfid');
-  for (i=0;i<=cmnts.length;i++){
-   unsafeWindow.document.getElementById('wpcprie_c_'+cmnts[i].value).onmouseover=function () {var tmp1=this.getAttribute('id'); tmp1=tmp1.substring(10,tmp1.length); drawBBeditor(document.getElementById('cbcfid_'+tmp1),false);}
-  }
  }
 }
 function processPage(){
