@@ -2,7 +2,7 @@
 // @name           Turbo VIOIS
 // @author          bodqhrohro
 // @description  Мелкие улучшения в пользовательском интерфейсе сайта viois.ru
-// @version        0.3.2 alpha
+// @version        0.3.1 alpha
 // @include        http://viois.ru/*
 // ==/UserScript==
 
@@ -193,9 +193,9 @@ function drawBBeditor(pnl,m1){
  addStyle('a:hover .bbtn { background-color:#ebeff9; }');
  var bbpanel=pnl;
  if (m1) {
-  bbpanel=bbpanel.getElementsByTagName('tbody')[0];
-  bbpanel=bbpanel.getElementsByTagName('tr')[0];
-  bbpanel=bbpanel.getElementsByTagName('td')[0];
+  bbpanel=bbpanel.getElementsByTagName('*')[0];
+  bbpanel=bbpanel.getElementsByTagName('*')[0];
+  bbpanel=bbpanel.getElementsByTagName('*')[0];
  } else {
   bbpanel=bbpanel.parentNode;
  }
@@ -240,17 +240,13 @@ function drawBBeditor(pnl,m1){
  ytbtn.onclick=function() {if (yturl=prompt("Вставьте URL видео:","")) {insertAtCursor(fld1,'[youtube]'+yturl+'[/youtube]');}};
 }
 function processAskPage(){
- if (readSetting('tv_bb_editor')){
-  unsafeWindow.document.getElementById('error_wavdi').onmouseover=function () {drawBBeditor(document.getElementById('wavdi'),false);}
- }
 }
 function processThreadPage(){
  if (readSetting('tv_thread_avatar')){
   addStyle('a:hover .wciuasCSS { width:auto; height:auto; position:absolute; z-index:150; }');
  }
  if (readSetting('tv_bb_editor')){
-  try {unsafeWindow.document.getElementById('wpcprie').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),true);}} catch(e) {};
-  try {unsafeWindow.document.getElementById('error_wavsi').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),true);}} catch(e) {};
+  unsafeWindow.document.getElementById('wpcprie').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),true);}
  }
 }
 function processBlogPage(){
@@ -263,11 +259,6 @@ function processBlogPage(){
   for (i=0;i<=cmnts.length;i++){
    unsafeWindow.document.getElementById('wpcprie_c_'+cmnts[i].value).onmouseover=function () {var tmp1=this.getAttribute('id'); tmp1=tmp1.substring(10,tmp1.length); drawBBeditor(document.getElementById('cbcfid_'+tmp1),false);}
   }
- }
-}
-function processNewBlogPage(){
- if (readSetting('tv_bb_editor')){
-  unsafeWindow.document.getElementById('error_wavdi').onmouseover=function () {drawBBeditor(document.getElementById('wavdi'),false);}
  }
 }
 function processPage(){
@@ -299,9 +290,6 @@ function processPage(){
  if ( /viois\.ru\/blog/ .test(window.location.href)) {
     processBlogPage();
   }
- if ( /viois\.ru\/newblog/ .test(window.location.href)) {
-    processNewBlogPage();
- }
 }
 processPage();
 }
