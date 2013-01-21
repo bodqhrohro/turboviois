@@ -2,7 +2,7 @@
 // @name           Turbo VIOIS
 // @author          bodqhrohro
 // @description  Мелкие улучшения в пользовательском интерфейсе сайта viois.ru
-// @version        0.3.3 alpha
+// @version        0.3.2 alpha
 // @include        http://viois.ru/*
 // ==/UserScript==
 
@@ -177,9 +177,6 @@ function insertAtCursor2(field, str1, str2) {
     var endPos = field.selectionEnd;
     field.value = field.value.substring(0, startPos) + str1 + field.value.substring(startPos, endPos) + str2 + field.value.substring(endPos, field.value.length);
   } else field.value += str1+str2;
-  startPos+=str1.length;
-  endPos+=str1.length;
-  field.setSelectionRange(startPos, endPos);
   field.focus();
 }
 function cleanupHideCookies(){
@@ -194,9 +191,8 @@ function cleanupHideCookies(){
 }
 function drawBBeditor(pnl,m1){
  addStyle('a:hover .bbtn { background-color:#ebeff9; }');
- addStyle('img.bbtn { display:inline; }');
  var bbpanel=pnl;
- if (m1==1) {
+ if (m1) {
   bbpanel=bbpanel.getElementsByTagName('tbody')[0];
   bbpanel=bbpanel.getElementsByTagName('tr')[0];
   bbpanel=bbpanel.getElementsByTagName('td')[0];
@@ -204,35 +200,22 @@ function drawBBeditor(pnl,m1){
   bbpanel=bbpanel.parentNode;
  }
  fld1=bbpanel.getElementsByTagName('textarea')[0];
- if (m1<2) {
-  bbpanel=bbpanel.getElementsByTagName('div')[0];
-  bbpanel.onmousedown='';
-  bbpanel.innerHTML='';
- } else {
-  tmpnl=document.createElement('div');
-  bbpanel.appendChild(tmpnl);
-  bbpanel=tmpnl;
- }
+ bbpanel=bbpanel.getElementsByTagName('div')[0];
+ bbpanel.onmousedown='';
+ bbpanel.innerHTML='';
  var bbtn=document.createElement('a');
- bbtn.setAttribute('class','bbtn');
  bbtn.innerHTML='<img id=\'bbtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAX0lEQVQ4y2P8//8/AzUBEwOVwaiBg9BAhv///2PFDAwMZxgYGP7jwGcYGBjSsOknxsByNDe4IBmshK6PEi/fY2BgeE8tL8NdTg0vCyLJdVDDy++xepVWXmYcLW1GgIEAm1vA6E+CY9UAAAAASUVORK5CYII=\' title=\'Жирный\' class=\'bbtn\'>';
  var ibtn=document.createElement('a');
- ibtn.setAttribute('class','bbtn');
  ibtn.innerHTML='<img id=\'ibtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAj0lEQVQ4y+3UsQkCYQzF8d8nVm4g6AIu4CQOYO8SbuAo198CgpWVCwiWFoKVGJvPTswVVwjeg3Qv/+QRSIkIfWqkZw3AHwSOu5hKKec6fIIn7hEx+2iOiLTq4A0C2299GeitOY64YtEHcF2j7rJkXYBT7HHBMgN2ufKqghqcUneyYYsbHjigzQ5Yhm/zB8AXmE7ocsOKwO0AAAAASUVORK5CYII=\' title=\'Курсив\' class=\'bbtn\'>';
  var ubtn=document.createElement('a');
- ubtn.setAttribute('class','bbtn');
  ubtn.innerHTML='<img id=\'ubtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAdklEQVQ4y2P8//8/AzUBEwOVwaiBVAD////HwAwMDMYMDAz/odgYTUsokpwgut6hG4bvB8LA91jV4YgUBgYGhjPQgN+NpmUVVPwMNv34DBRkYGDoQIpRGH4HFRfEZiDjoC8cWHBJMDIy/iciUzDS3IWMI6+ABQDdNHFjxNx/6wAAAABJRU5ErkJggg==\' title=\'Подчёркивание\' class=\'bbtn\'>';
  var lbtn=document.createElement('a');
- lbtn.setAttribute('class','bbtn');
  lbtn.innerHTML='<img id=\'lbtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAgUlEQVQ4y+2U2wmAMAxFT8RF3KBuoBu4WVdyAx3BDTpC/KkQgviAfPZCaSiXQ5ILFVUlUh3BasAAmZQzoO4UYDH2pb55X/bAO5iFXioPvgwgqoqIXG2OwF7r6WW4td4J2GotHih2Gy/AO+/QO1MyHc4fY0imPsJ3GJ6ytM+hAf/rBAhGVoaeusxUAAAAAElFTkSuQmCC\' title=\'Вставить ссылку...\' class=\'bbtn\'>';
  var qbtn=document.createElement('a');
- qbtn.setAttribute('class','bbtn');
  qbtn.innerHTML='<img id=\'qbtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAdUlEQVQ4y+2U0QmAMAxE37lBV3AFXcERXMEVOouzuIIr6AqOEH+KlFoKQn+EHhyBg3sQApGZUVMdldWAfwJKWiVZ8CIpzfw/V8bMsg4aAAPmqPJk2V4B2AM7cEQwB2whc7leaWUPnMCYZBcwhfk+ZnsODfhdN0SuWLeWjG7PAAAAAElFTkSuQmCC\' title=\'Цитата\' class=\'bbtn\'>';
  var imgbtn=document.createElement('a');
- imgbtn.setAttribute('class','bbtn');
  imgbtn.innerHTML='<img id=\'imgbtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAo0lEQVQ4y+2UsQ2DMBRE7xDTsAAzIFZKmT1AYgZkKUyQBbxDpjgaI5nIlm3iIgXXfLn4707/26Yk1FSDyvp/YOsfSD4AdIUMK+kZS5iCWQCTq8GetjDNW9JGMmpeCuwdrM+aYYa61FhSWzY1r80saQlAzSWgpJerPtRETJIznL/gC8mPb+KWM+QkXI/GUGLfBMCak3AkOdZ6y/YC49TD+z/8WTtJU0JMFaR51AAAAABJRU5ErkJggg==\' title=\'Вставить изображение...\' class=\'bbtn\'>';
  var ytbtn=document.createElement('a');
- ytbtn.setAttribute('class','bbtn');
  ytbtn.innerHTML='<img id=\'ytbtn\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAEPklEQVQ4y6WU3WsUVxjGnzNnPjaT3ZlszGbJWq2EdtMkbl0qloWCe5PYxkDAO0FKoJRKbmrvQq/qH1By68e19ANEMBKiMR/qijBlURBaU2uRxLhNStidr3VmZ+bM6UW6JbW5EPrAe3He9+XHgfM8B5xztOvBgwdfVqvVLzjnuHfv3terq6sTu+dvUv86zMzMzA8MDPB6vf6Vqqr80aNHn/0vIOe879SpU7xUKvGzZ8/+HIbh+OnTp59OTU09DYJg6NKlS9/duXNn5vLly7dv3rz5zV5Aev78eeyS6zjO0IULF4avXr367cWLF89sbm7mt7a20s1ms2gYRgFA1/z8/HHOuV0ul3/AaxJebxQKheVsNotDhw4tP3v2TJucnPzx5MmTsxsbG3379+93MpnM2oEDB/5Ip9MN7KH/AFutFuWcA4DjOI7y/Pnzd2q12tuU0sjzPGaaZrZWq3VFUYQ3Avb29v6ez+frnPNfp6enp69du/bhkydP3j137tznAwMDlYWFhffDMHQLhcJPewHJ37eBaZqf2radC8Ow37btD1RVrSYSCadarZ5RVdXL5/NX6vV62TTNvmw2u62q6m+yLP/S1dW1oWna97uB0sOHDxdnZ2ePt5uiKEJRFHDO0dnZCc/z4LouNE2DLMuI4xhxHCMMQwDA6Ojo7WKxOAaAia7rfry0tHR8ZGQEyWQSAEAp5Xfv3iWEEERRhFwuh/7+fjx+/BhBEECWZXDOoSgKbNtGpVIZHRwcLCuKsixYlvUeYwwdHR28WCyiWCwiiiLYto0wDNFoNNDT04NSqQTXdWGaJgghcBwHlmWBUgrOOSzLGgQAMQiCbkopbty4QTKZDKIowvXr18mJEydQq9UwPDyMMAzhui4mJiawvr4OwzBQLpeRy+Vw//59rK2twff9DAAIQRDocRxDlmWIogjOOfr6+nDs2DH09vaiVCpBkiR4nodUKoWjR4/i8OHDGBoaQhzHGBsbQxRF8H0/BQACY0zlnIMQsvNKhCCOY1iWhVarBdM0IUkSms0mKpUKGo0GstksgiCA7/vYt28fZFlGGIYUAARK6as27HUxxtC2FaUUHR0dAADf95FOp+H7Pm7dugVCCCRJYgAgyLJsEUJ2gk0pBEGAIOz4XZIkJBIJxHEMURRBCAGlFOl0Gi9fvoRhGDh48CAopRBF0QUAIZFI1CmliOO4PYDjONB1HaVSCYIgoNVqIZVKoVwuQ1EUGIYBTdMwNTUFTdPgeR5UVf0TAERd11cppaCUYnFxEZxziKKIubk5CILwj33m5uag6zosy8L29jYWFhaQyWRgGAaSySS6u7tX20mRq9Xq8srKykfNZhOEECSTSTiOg93J2f0ZaJoG13XRdsf4+PjikSNHPgHAdmd50rbttxhjKmNMYYx1MsYk3l7YcQChlLYopa9EUWwJgtDUdf2FrutX2jt/AS41dUaC5TOOAAAAAElFTkSuQmCC\' title=\'Вставить видео с YouTube...\' class=\'bbtn\'>';
  bbpanel.appendChild(bbtn);
  bbpanel.appendChild(ibtn);
@@ -258,7 +241,7 @@ function drawBBeditor(pnl,m1){
 }
 function processAskPage(){
  if (readSetting('tv_bb_editor')){
-  unsafeWindow.document.getElementById('error_wavdi').onmouseover=function () {drawBBeditor(document.getElementById('wavdi'),0);}
+  unsafeWindow.document.getElementById('error_wavdi').onmouseover=function () {drawBBeditor(document.getElementById('wavdi'),false);}
  }
 }
 function processThreadPage(){
@@ -266,8 +249,8 @@ function processThreadPage(){
   addStyle('a:hover .wciuasCSS { width:auto; height:auto; position:absolute; z-index:150; }');
  }
  if (readSetting('tv_bb_editor')){
-  try {unsafeWindow.document.getElementById('wpcprie').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),1);}} catch(e) {};
-  try {unsafeWindow.document.getElementById('error_wavsi').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),1);}} catch(e) {};
+  try {unsafeWindow.document.getElementById('wpcprie').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),true);}} catch(e) {};
+  try {unsafeWindow.document.getElementById('error_wavsi').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),true);}} catch(e) {};
  }
 }
 function processBlogPage(){
@@ -275,37 +258,16 @@ function processBlogPage(){
   addStyle('a:hover .wciuasCSS { width:auto; height:auto; position:absolute; z-index:150; }');
  }
  if (readSetting('tv_bb_editor')){
-  unsafeWindow.document.getElementById('wpiprdi').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),1);}
+  unsafeWindow.document.getElementById('wpcprie_a').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),true);}
   var cmnts=document.getElementsByName('pfid');
   for (i=0;i<=cmnts.length;i++){
-   unsafeWindow.document.getElementById('wpcprie_c_'+cmnts[i].value).onmouseover=function () {var tmp1=this.getAttribute('id'); tmp1=tmp1.substring(10,tmp1.length); drawBBeditor(document.getElementById('cbcfid_'+tmp1),0);}
+   unsafeWindow.document.getElementById('wpcprie_c_'+cmnts[i].value).onmouseover=function () {var tmp1=this.getAttribute('id'); tmp1=tmp1.substring(10,tmp1.length); drawBBeditor(document.getElementById('cbcfid_'+tmp1),false);}
   }
  }
 }
 function processNewBlogPage(){
  if (readSetting('tv_bb_editor')){
-  unsafeWindow.document.getElementById('error_wavdi').onmouseover=function () {drawBBeditor(document.getElementById('wavdi'),0);}
- }
-}
-function processSupportPage(){
- if (readSetting('tv_bb_editor')){
-  drawBBeditor(document.getElementById('wavdi'),2);
- }
-}
-function processTicketPage(){
- if (readSetting('tv_bb_editor')){
-  drawBBeditor(document.getElementById('wpiprdi'),2);
- }
-}
-function processUserPage(){
- if (readSetting('tv_bb_editor')){
-  try {drawBBeditor(document.getElementById('wcvdi'),0);} catch(e) {console.log(e);};
-  try {drawBBeditor(document.getElementById('wpiprdi'),0);} catch(e) {console.log(e);};
- }
-}
-function processUpdatePage(){
- if (readSetting('tv_bb_editor')){
-  unsafeWindow.document.getElementById('wavdi').onmouseover=function () {drawBBeditor(document.getElementById('wavdi'),0);}
+  unsafeWindow.document.getElementById('error_wavdi').onmouseover=function () {drawBBeditor(document.getElementById('wavdi'),false);}
  }
 }
 function processPage(){
@@ -339,18 +301,6 @@ function processPage(){
   }
  if ( /viois\.ru\/newblog/ .test(window.location.href)) {
     processNewBlogPage();
- }
- if ( /viois\.ru\/support/ .test(window.location.href)) {
-    processSupportPage();
- }
- if ( /viois\.ru\/ticket/ .test(window.location.href)) {
-    processTicketPage();
- }
- if ( /viois\.ru\/user/ .test(window.location.href)) {
-    processUserPage();
- }
- if ( /viois\.ru\/update/ .test(window.location.href)) {
-    processUpdatePage();
  }
 }
 processPage();
