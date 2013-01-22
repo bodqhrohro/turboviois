@@ -2,7 +2,7 @@
 // @name           Turbo VIOIS
 // @author          bodqhrohro
 // @description  Мелкие улучшения в пользовательском интерфейсе сайта viois.ru
-// @version        0.3.4 alpha
+// @version        0.3.3 alpha
 // @include        http://viois.ru/*
 // ==/UserScript==
 
@@ -258,7 +258,7 @@ function drawBBeditor(pnl,m1){
 }
 function processAskPage(){
  if (readSetting('tv_bb_editor')){
-  drawBBeditor(document.getElementById('wavdi'),0);
+  unsafeWindow.document.getElementById('error_wavdi').onmouseover=function () {drawBBeditor(document.getElementById('wavdi'),0);}
  }
 }
 function processThreadPage(){
@@ -266,8 +266,8 @@ function processThreadPage(){
   addStyle('a:hover .wciuasCSS { width:auto; height:auto; position:absolute; z-index:150; }');
  }
  if (readSetting('tv_bb_editor')){
-  try {unsafeWindow.document.getElementById('wpiprdi').onmouseover=function () {drawBBeditor(this,0);}} catch(e) {};
-  try {unsafeWindow.document.getElementById('wpiprdi').onmouseover=function () {drawBBeditor(this,0);}} catch(e) {};
+  try {unsafeWindow.document.getElementById('wpcprie').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),1);}} catch(e) {};
+  try {unsafeWindow.document.getElementById('error_wavsi').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),1);}} catch(e) {};
  }
 }
 function processBlogPage(){
@@ -275,16 +275,16 @@ function processBlogPage(){
   addStyle('a:hover .wciuasCSS { width:auto; height:auto; position:absolute; z-index:150; }');
  }
  if (readSetting('tv_bb_editor')){
-  unsafeWindow.document.getElementById('wpiprdi').onmouseover=function () {drawBBeditor(this,0);}
+  unsafeWindow.document.getElementById('wpiprdi').onmouseover=function () {drawBBeditor(document.getElementById('error_wpiprdi'),1);}
   var cmnts=document.getElementsByName('pfid');
   for (i=0;i<=cmnts.length;i++){
-   unsafeWindow.document.getElementById('cbcfid_'+cmnts[i].value).onmouseover=function () {drawBBeditor(this,0);}
+   unsafeWindow.document.getElementById('wpcprie_c_'+cmnts[i].value).onmouseover=function () {var tmp1=this.getAttribute('id'); tmp1=tmp1.substring(10,tmp1.length); drawBBeditor(document.getElementById('cbcfid_'+tmp1),0);}
   }
  }
 }
 function processNewBlogPage(){
  if (readSetting('tv_bb_editor')){
-  unsafeWindow.document.getElementById('wavdi').onmouseover=function () {drawBBeditor(this,0);}
+  unsafeWindow.document.getElementById('error_wavdi').onmouseover=function () {drawBBeditor(document.getElementById('wavdi'),0);}
  }
 }
 function processSupportPage(){
@@ -305,7 +305,7 @@ function processUserPage(){
 }
 function processUpdatePage(){
  if (readSetting('tv_bb_editor')){
-  drawBBeditor(document.getElementById('wavdi'),0);
+  unsafeWindow.document.getElementById('wavdi').onmouseover=function () {drawBBeditor(document.getElementById('wavdi'),0);}
  }
 }
 function processPage(){
