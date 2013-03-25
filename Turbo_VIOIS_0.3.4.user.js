@@ -2,8 +2,8 @@
 // @name           Turbo VIOIS
 // @author          bodqhrohro
 // @description  Мелкие улучшения в пользовательском интерфейсе сайта viois.ru
-// @version        0.4.0 alpha
-// @include        http://*viois.ru/*
+// @version        0.3.4 alpha
+// @include        http://viois.ru/*
 // ==/UserScript==
 
 (function(){
@@ -74,9 +74,6 @@ displaySetting(labelFieldReplace, 'tv_disable_chat', false);
 var labelFieldReplace = addCheckbox(settingsBody, 'Редактор BB-кодов');
 labelFieldReplace.addEventListener('click', function () { toggleSetting('tv_bb_editor'); }, true);
 displaySetting(labelFieldReplace, 'tv_bb_editor', false);
-var labelFieldReplace = addCheckbox(settingsBody, 'Не отображать стили VIP-статуса');
-labelFieldReplace.addEventListener('click', function () { toggleSetting('tv_hide_vip_style'); }, true);
-displaySetting(labelFieldReplace, 'tv_hide_vip_style', false);
 //var labelFieldReplace = addCheckbox(settingsBody, 'Открывать миничат в новом окне');
 //labelFieldReplace.addEventListener('click', function () { toggleSetting('tv_chat_newwindow'); }, true);
 //displaySetting(labelFieldReplace, 'tv_chat_newwindow', false);
@@ -259,18 +256,6 @@ function drawBBeditor(pnl,m1){
  ytbtn=unsafeWindow.document.getElementById('ytbtn');
  ytbtn.onclick=function() {if (yturl=prompt("Вставьте URL видео:","")) {insertAtCursor(fld1,'[youtube]'+yturl+'[/youtube]');}};
 }
-function processVIP1(){
- if (readSetting('tv_hide_vip_style')){
-  try {
-   var nicks1=document.getElementsByClassName('wpcpaCSS');
-   for (i=0;i<nicks1.length;i++) {
-    nicks1[i].getElementsByTagName('a')[0].setAttribute('style','font-size: 12px; vertical-align: top !important;');
-   }
-  } catch(e) {
-   console.log(e);
-  }
- }
-}
 function processAskPage(){
  if (readSetting('tv_bb_editor')){
   drawBBeditor(document.getElementById('wavdi'),0);
@@ -284,10 +269,8 @@ function processThreadPage(){
   try {unsafeWindow.document.getElementById('wpiprdi').onmouseover=function () {drawBBeditor(this,0);}} catch(e) {};
   try {unsafeWindow.document.getElementById('wpiprdi').onmouseover=function () {drawBBeditor(this,0);}} catch(e) {};
  }
- processVIP1();
 }
 function processBlogPage(){
- processVIP1();
  if (readSetting('tv_thread_avatar')){
   addStyle('a:hover .wciuasCSS { width:auto; height:auto; position:absolute; z-index:150; }');
  }
@@ -319,21 +302,6 @@ function processUserPage(){
   try {drawBBeditor(document.getElementById('wcvdi'),0);} catch(e) {console.log(e);};
   try {drawBBeditor(document.getElementById('wpiprdi'),0);} catch(e) {console.log(e);};
  }
- if (readSetting('tv_hide_vip_style')){
-  try {
-   var nicks1=document.getElementsByClassName('wvantCSS')[1];
-   nicks1.getElementsByTagName('span')[1].setAttribute('style','');
-   nicks1=document.getElementsByClassName('wuvunmCSS')[0];
-   nicks1.getElementsByTagName('span')[0].setAttribute('style','');
-   var nicks2=nicks1.getElementsByTagName('font')[0];
-   if (nicks2) {nicks2.parentNode.removeChild(nicks2);}
-   nicks1=document.getElementsByClassName('wpmopCSS')[0];
-   nicks1.getElementsByTagName('a')[0].setAttribute('style','');
-  } catch(e) {
-   console.log(e);
-  }
- }
- processVIP1();
 }
 function processUpdatePage(){
  if (readSetting('tv_bb_editor')){
@@ -352,19 +320,6 @@ function processPage(){
  tvbutton.onclick=function () {show_settings();};
  if (readSetting('tv_disable_chat')){
   unsafeWindow.document.body.removeChild(unsafeWindow.document.getElementById('chatbar'));
- }
- if (readSetting('tv_hide_vip_style')){
-  var head=document.getElementsByTagName('head')[0];
-  head.removeChild(head.getElementsByTagName('style')[0]);
-  try {
-   var nicks1=document.getElementById('csuid1');
-   nicks1=nicks1.getElementsByTagName('tr');
-   for (i=1;i<nicks1.length;i++) {
-    nicks1[i].getElementsByTagName('td')[3].getElementsByTagName('a')[0].setAttribute('style','font-size: 12px;');
-   }
-  } catch(e) {
-   console.log(e);
-  }
  }
  if (readSetting('tv_chat_newwindow')){
   var chnwbutton=document.createElement('td');
