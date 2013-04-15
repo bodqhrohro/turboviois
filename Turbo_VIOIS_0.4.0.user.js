@@ -2,7 +2,7 @@
 // @name           Turbo VIOIS
 // @author          bodqhrohro
 // @description  Мелкие улучшения в пользовательском интерфейсе сайта viois.ru
-// @version        0.4.1 alpha
+// @version        0.4.0 alpha
 // @include        http://*viois.ru/*
 // ==/UserScript==
 
@@ -346,17 +346,12 @@ function processPage(){
  vfh=vfh.getElementsByTagName('*')[0];
  vfh=vfh.getElementsByTagName('*')[0];
  var tvbutton=document.createElement('td');
- tvbutton.innerHTML='<img class=\'vfh_item\' id=\'tvbutton\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAIGNIUk0AAHolAACAgwAA+f8AAIDoAABSCAABFVgAADqXAAAXb9daH5AAAAT7SURBVHjaZNRJbFsFHsfx73vPz37x0vglTtImKUmaZUjTluCZpAlqKaUoUttDi4TEckAjcUQccuYyp9FohMRhxGXggDghIdCA1CGXClUDRSXqQrok7hZqY8f2c7y9xX47J8IM87v/P/pd/j9hdXWVXxONRpFlGVEUSSaTw/tS+87IoryALww4YQhiqIWhu24Y+mXDMEpBEOC6Lo7j7BkRfhff98n0Z86nYqm3d7XdU1pLi3dEi5QSIAQpYrFBK9OvXpFl+YNqtXrp9/d7YBiGAMnxg+P/KBVKf15rrGGMGnSO2mijRf4ijTPTHCTf2IjfftB3VhAPnx0ZHfu4kN9+JwxDQxAEAKTl5WXCMEQQhNT4wbGvbt658fKX41+xeXGTqcgUL9w7RUPRaTxWiV8d4uRxk1NZnZZZZKsQzA8PTSy3240vwhBHEASkbDaL4zhMjD/14Wbu3sVvF6/wbPoo87f/SEtskdnOMGNPk+70ojXaiG6czjWdo+ou/fJPXH4cmZgYnRypViv/CoIAaW5uDlXdd7bblf7+6ecz+NpFBu6OMSJpzARzpNQUuCGyIJHM9KLpHo/yj5nJ3efIRA9PbjcpKEPPxGPyD61W62FEEIT9fX3x1Uv/Dgi6zzJj3qFvuog6MIjeNmn5LWqaBoFDTBbpmiUudO6zXpDY+qzF68U277V/IHbmxVVxd/emGI/3rNh253mtup9Dkz8zO/8dsdg2QSjSaDYolkqYlkWpXObWnXu8GtygN+/xN3+Gh5pAIhHwh1KRlmE835NIrEQURTreajmxVmuYen2E/v4plpZ0tre3MQwDXdcp7ewgdjq8e6jCbL7NG9YRnn7uMA+2PEJbI9vU+VHTYmI6fTwCQcayFCxL5qWXPiIWa6BpQ7iuS7Vaxfd9zl94mbmIwZlr/+SVXJoHvTq5tTWmRY9yTw3f7aVtWKTT6Yzouh6RSJcwlLh79zkcZxDHMcnn8xQKBbLZLGPD+zH3z/DXzCt8HwQMJRP8aXGRTLSH8eQwYkTB9lw81yWi691aMpnk8OHPMM0xgsAjCEI0TcNxHJ48yXPs2DMIgsCGVgXPp1bbxQ9DLN3kVUNixzKYUmK4plmL7OxUrs3O9r2VSt2KqWqOSsXhxo0KEOK5IVev/odypYBrw4OHOSBgt1anWq0AUACQJI6rqv3T9vY1SVGUiqqqWYhMlst1arVdbNum2/FYeavB9IKJLZU4tLhDUnU4/ZpPx/LRCr/979EjRxgYGPhmc3PzPdGyrPLGxsb7o6OjNJtNms0m3a5Np9Ph6UWHQ8cCDozBiQsw+BTMLYeMTP7XGEQiLC4usrGx8b5pmmXR933K5fLXuVzuk/n5eQzDwDQMut0Oph5gtiGRhmoRHBuiCrj2b+C5c+coFouflEqlr33fRzhw4AAAruumFhYWvoxGo6fX1tawbZuD0xGmZjMggNORsMwuTtDg/q0AMYixsrKC53nfrK+vX5BlWQeQUqkUAKIoOo8ePfq8p6dneGlpaT4ajVL52WVq5AQJaZKRgWPgqGzdbDE5McXJkycoFosfX79+/U1FUfbma68hgOM4mKZJIpE4Pzs7+3ZfX98pz/PirusCIMsysixbtVrtytbW1gemaV5KJBJEo9E94/9A13WxLIswDIf7+/vPqKq6oCjKQBiG2Lat1ev19Xq9flkQhFI8HkeW5f8BfxkA+0CAVvtMYt8AAAAASUVORK5CYII=\' title=\'Настройки Turbo VIOIS\'>';
+ tvbutton.innerHTML='<img id=\'tvbutton\' src=\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsSAAALEgHS3X78AAAAIGNIUk0AAHolAACAgwAA+f8AAIDoAABSCAABFVgAADqXAAAXb9daH5AAAAT7SURBVHjaZNRJbFsFHsfx73vPz37x0vglTtImKUmaZUjTluCZpAlqKaUoUttDi4TEckAjcUQccuYyp9FohMRhxGXggDghIdCA1CGXClUDRSXqQrok7hZqY8f2c7y9xX47J8IM87v/P/pd/j9hdXWVXxONRpFlGVEUSSaTw/tS+87IoryALww4YQhiqIWhu24Y+mXDMEpBEOC6Lo7j7BkRfhff98n0Z86nYqm3d7XdU1pLi3dEi5QSIAQpYrFBK9OvXpFl+YNqtXrp9/d7YBiGAMnxg+P/KBVKf15rrGGMGnSO2mijRf4ijTPTHCTf2IjfftB3VhAPnx0ZHfu4kN9+JwxDQxAEAKTl5WXCMEQQhNT4wbGvbt658fKX41+xeXGTqcgUL9w7RUPRaTxWiV8d4uRxk1NZnZZZZKsQzA8PTSy3240vwhBHEASkbDaL4zhMjD/14Wbu3sVvF6/wbPoo87f/SEtskdnOMGNPk+70ojXaiG6czjWdo+ou/fJPXH4cmZgYnRypViv/CoIAaW5uDlXdd7bblf7+6ecz+NpFBu6OMSJpzARzpNQUuCGyIJHM9KLpHo/yj5nJ3efIRA9PbjcpKEPPxGPyD61W62FEEIT9fX3x1Uv/Dgi6zzJj3qFvuog6MIjeNmn5LWqaBoFDTBbpmiUudO6zXpDY+qzF68U277V/IHbmxVVxd/emGI/3rNh253mtup9Dkz8zO/8dsdg2QSjSaDYolkqYlkWpXObWnXu8GtygN+/xN3+Gh5pAIhHwh1KRlmE835NIrEQURTreajmxVmuYen2E/v4plpZ0tre3MQwDXdcp7ewgdjq8e6jCbL7NG9YRnn7uMA+2PEJbI9vU+VHTYmI6fTwCQcayFCxL5qWXPiIWa6BpQ7iuS7Vaxfd9zl94mbmIwZlr/+SVXJoHvTq5tTWmRY9yTw3f7aVtWKTT6Yzouh6RSJcwlLh79zkcZxDHMcnn8xQKBbLZLGPD+zH3z/DXzCt8HwQMJRP8aXGRTLSH8eQwYkTB9lw81yWi691aMpnk8OHPMM0xgsAjCEI0TcNxHJ48yXPs2DMIgsCGVgXPp1bbxQ9DLN3kVUNixzKYUmK4plmL7OxUrs3O9r2VSt2KqWqOSsXhxo0KEOK5IVev/odypYBrw4OHOSBgt1anWq0AUACQJI6rqv3T9vY1SVGUiqqqWYhMlst1arVdbNum2/FYeavB9IKJLZU4tLhDUnU4/ZpPx/LRCr/979EjRxgYGPhmc3PzPdGyrPLGxsb7o6OjNJtNms0m3a5Np9Ph6UWHQ8cCDozBiQsw+BTMLYeMTP7XGEQiLC4usrGx8b5pmmXR933K5fLXuVzuk/n5eQzDwDQMut0Oph5gtiGRhmoRHBuiCrj2b+C5c+coFouflEqlr33fRzhw4AAAruumFhYWvoxGo6fX1tawbZuD0xGmZjMggNORsMwuTtDg/q0AMYixsrKC53nfrK+vX5BlWQeQUqkUAKIoOo8ePfq8p6dneGlpaT4ajVL52WVq5AQJaZKRgWPgqGzdbDE5McXJkycoFosfX79+/U1FUfbma68hgOM4mKZJIpE4Pzs7+3ZfX98pz/PirusCIMsysixbtVrtytbW1gemaV5KJBJEo9E94/9A13WxLIswDIf7+/vPqKq6oCjKQBiG2Lat1ev19Xq9flkQhFI8HkeW5f8BfxkA+0CAVvtMYt8AAAAASUVORK5CYII=\' title=\'Настройки Turbo VIOIS\'>';
  vfh.appendChild(tvbutton);
  tvbutton=unsafeWindow.document.getElementById('tvbutton');
  tvbutton.onclick=function () {show_settings();};
- addStyle('#tvbutton{display:inline-block !important;}');
  if (readSetting('tv_disable_chat')){
-  try {
-   unsafeWindow.document.body.removeChild(unsafeWindow.document.getElementById('chatbar'));
-  } catch(e) {
-   console.log(e);
-  }
+  unsafeWindow.document.body.removeChild(unsafeWindow.document.getElementById('chatbar'));
  }
  if (readSetting('tv_hide_vip_style')){
   var head=document.getElementsByTagName('head')[0];
@@ -366,15 +361,6 @@ function processPage(){
    nicks1=nicks1.getElementsByTagName('tr');
    for (i=1;i<nicks1.length;i++) {
     nicks1[i].getElementsByTagName('td')[3].getElementsByTagName('a')[0].setAttribute('style','font-size: 12px;');
-   }
-  } catch(e) {
-   console.log(e);
-  }
-  try {
-   var nicks1=document.getElementById('csuid1');
-   nicks1=nicks1.getElementsByTagName('tr');
-   for (i=1;i<nicks1.length;i++) {
-    nicks1[i].getElementsByTagName('td')[1].getElementsByTagName('a')[0].setAttribute('style','font-size: 12px;');
    }
   } catch(e) {
    console.log(e);
