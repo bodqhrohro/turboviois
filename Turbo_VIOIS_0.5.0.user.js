@@ -2,7 +2,7 @@
 // @name           Turbo VIOIS
 // @author          bodqhrohro
 // @description  Мелкие улучшения в пользовательском интерфейсе сайта viois.ru
-// @version        0.6.0 alpha
+// @version        0.5.0 alpha
 // @include        http://*viois.ru/*
 // ==/UserScript==
 
@@ -40,7 +40,6 @@ nmp2.setAttribute('id','nmp2');
 var nmp3=unsafeWindow.document.createElement('div');
 nmp3.setAttribute('class','wcvdgCSS-bg');
 nmp3.style.opacity=0.7;
-nmp3.style.animation='appear1 1s';
 nmp3.style.width='100%';
 nmp3.style.height='150%';
 var nmp4=unsafeWindow.document.createElement('div');
@@ -48,7 +47,6 @@ nmp4.setAttribute('class','wcvdgCSS');
 nmp4.setAttribute('tabindex','0');
 nmp4.style.left='396px';
 nmp4.style.top='20%';
-nmp4.style.animation='appear2 1s';
 nmp4.setAttribute('role','dialog');
 nmp4.setAttribute('arialabelledby',':0');
 var nmp5=unsafeWindow.document.createElement('div');
@@ -77,12 +75,6 @@ displaySetting(labelFieldReplace, 'tv_bb_editor', false);
 var labelFieldReplace = addCheckbox(settingsBody, 'Не отображать стили VIP-статуса');
 labelFieldReplace.addEventListener('click', function () { toggleSetting('tv_hide_vip_style'); }, true);
 displaySetting(labelFieldReplace, 'tv_hide_vip_style', false);
-var labelFieldReplace = addCheckbox(settingsBody, 'Аватарки слева');
-labelFieldReplace.addEventListener('click', function () { toggleSetting('tv_avatars_to_left'); }, true);
-displaySetting(labelFieldReplace, 'tv_avatars_to_left', false);
-var labelFieldReplace = addCheckbox(settingsBody, 'Восстанавливать HTML в профилях (не рекомендуется)');
-labelFieldReplace.addEventListener('click', function () { toggleSetting('tv_repair_profile_html'); }, true);
-displaySetting(labelFieldReplace, 'tv_repair_profile_html', false);
 var labelFieldReplace = addButton(settingsBody, 'Восстановить все скрытые блоки');
 labelFieldReplace.addEventListener('click', function () {var tmp1={}; localStorage.setItem('tv_hide_panels',JSON.stringify(tmp1)); }, true);
 nmp7.appendChild(nmp8);
@@ -251,23 +243,6 @@ function processVIP1(){
   }
  }
 }
-function avatarsToLeft(){
- processAvatars(unsafeWindow.document.getElementsByClassName('wpcppCSS'));
- processAvatars([unsafeWindow.document.body]);
- addStyle('.wpcpvbCSS{width:44px;height:50px;background:transparent;margin-bottom:4px;transition: background ease 0.5s;}.wpcpvbCSS:hover{background:#ebeff9};');
-}
-function processAvatars(nodes){
- var avatar,avstr;
- for (i=0;i<nodes.length;i++) {
-  avatar=nodes[i].getElementsByClassName('wciuasCSS')[0];
-  if (avatar) {
-   avstr=avatar.src;
-   avatar.parentNode.parentNode.removeChild(avatar.parentNode);
-   nodes[i].getElementsByClassName('wrpthbCSS')[0].style.backgroundImage='url('+avstr+')';
-  }
-  nodes[i].getElementsByClassName('wrpthbCSS')[0].style.backgroundSize='cover';
- }
-}
 function processAskPage(){
  if (readSetting('tv_bb_editor')){
   drawBBeditor(unsafeWindow.document.getElementById('wavdi'),0);
@@ -281,18 +256,12 @@ function processThreadPage(){
   try {unsafeWindow.document.getElementById('wpiprdi').onmouseover=function () {drawBBeditor(this,0);}} catch(e) {};
   try {unsafeWindow.document.getElementById('wpiprdi').onmouseover=function () {drawBBeditor(this,0);}} catch(e) {};
  }
- if (readSetting('tv_avatars_to_left')){
-  avatarsToLeft();
- }
  processVIP1();
 }
 function processBlogPage(){
  processVIP1();
  if (readSetting('tv_thread_avatar')){
-  addStyle('a:hover .wciuasCSS { width:auto; height:auto; position:absolute; z-index:150; } a .wciuasCSS { transition: width 1s !important; }');
- }
- if (readSetting('tv_avatars_to_left')){
-  avatarsToLeft();
+  addStyle('a:hover .wciuasCSS { width:auto; height:auto; position:absolute; z-index:150; }');
  }
  if (readSetting('tv_bb_editor')){
   unsafeWindow.document.getElementById('wpiprdi').onmouseover=function () {drawBBeditor(this,0);}
@@ -300,9 +269,6 @@ function processBlogPage(){
   for (i=0;i<=cmnts.length;i++){
    unsafeWindow.document.getElementById('cbcfid_'+cmnts[i].value).onmouseover=function () {drawBBeditor(this,0);}
   }
- }
- if (readSetting('tv_avatars_to_left')){
-  avatarsToLeft();
  }
 }
 function processNewBlogPage(){
@@ -340,11 +306,6 @@ function processUserPage(){
   }
  }
  processVIP1();
- if (readSetting('tv_repair_profile_html')){
-  var profinfo=unsafeWindow.document.getElementsByClassName('wuitCSS')[1];
-  profinfo=profinfo.getElementsByTagName('td')[1];
-  profinfo.innerHTML=profinfo.textContent;
- }
 }
 function processUpdatePage(){
  if (readSetting('tv_bb_editor')){
@@ -362,8 +323,6 @@ function processPage(){
  tvbutton=unsafeWindow.document.getElementById('tvbutton');
  tvbutton.onclick=function () {show_settings();};
  addStyle('#tvbutton{display:inline-block !important;}');
- addStyle('@keyframes appear1{0%{opacity:0;}100%{opacity:0.7;}}');
- addStyle('@keyframes appear2{0%{top:-20%;opacity:0;}100%{top:20%;opacity:1;}}');
  if (readSetting('tv_hide_vip_style')){
   var head=unsafeWindow.document.getElementsByTagName('head')[0];
   head.removeChild(head.getElementsByTagName('style')[0]);
